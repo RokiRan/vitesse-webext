@@ -7,7 +7,7 @@ import { storageDemo } from '~/logic/storage'
     <img src="/assets/icon.svg" class="icon-btn mx-2 text-2xl" alt="extension icon">
     <div>Options</div>
     <p class="mt-2 opacity-50">
-      This is the options page
+      This is the options page !
     </p>
 
     <input v-model="storageDemo" class="border border-gray-400 rounded px-2 py-1 mt-2">

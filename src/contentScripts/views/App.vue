@@ -3,6 +3,15 @@ import { useToggle } from '@vueuse/core'
 import 'virtual:windi.css'
 
 const [show, toggle] = useToggle(false)
+const channel = new BroadcastChannel('my_bus')
+channel.onmessage = function(e) {
+  console.log(`Received${e.data}`)
+}
+const sendMsg = (msg: string): void => {
+  // eslint-disable-next-line no-alert
+  // alert(msg)
+  channel.postMessage(msg + window.location.host)
+}
 </script>
 
 <template>
@@ -14,12 +23,19 @@ const [show, toggle] = useToggle(false)
       transition="opacity duration-300"
       :class="show ? 'opacity-100' : 'opacity-0'"
     >
-      Vitesse WebExt
+      我的扩展看板
     </div>
     <div
       class="flex w-10 h-10 rounded-full shadow cursor-pointer"
       bg="teal-600 hover:teal-700"
       @click="toggle()"
+    >
+      <pixelarticons-power class="block m-auto text-white text-lg" />
+    </div>
+    <div
+      class="flex w-10 h-10 rounded-full shadow cursor-pointer"
+      bg="pink-600 hover:pink-700"
+      @click="sendMsg('hi:')"
     >
       <pixelarticons-power class="block m-auto text-white text-lg" />
     </div>
