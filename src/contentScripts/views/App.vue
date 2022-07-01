@@ -1,17 +1,27 @@
 <script setup lang="ts">
 import { useToggle } from '@vueuse/core'
+import type { JsonValue } from 'type-fest'
 import 'virtual:windi.css'
-
+import { onMessage, sendMessage } from 'webext-bridge'
+import { storageDemo } from '~/logic/storage'
+import type { TabInfo } from '~/types/Options'
+import type { sysOrder } from '~/types/Orders'
+import { CHANNEL, CMD } from '~/types/Orders'
+const tabInfo = reactive<TabInfo>({
+  tabId: 0,
+})
 const [show, toggle] = useToggle(false)
-const channel = new BroadcastChannel('my_bus')
-channel.onmessage = function(e) {
-  console.log(`Received${e.data}`)
-}
 const sendMsg = (msg: string): void => {
-  // eslint-disable-next-line no-alert
-  // alert(msg)
-  channel.postMessage(msg + window.location.host)
+  const _msg: sysOrder = {
+    cmd: CMD.TEST_CMD,
+    script: `alert('${msg}'+${window.location.host})`,
+  }
+  sendMessage(CHANNEL.SYSTEM, (_msg as unknown as JsonValue), 'options')
 }
+
+onMounted(() => {
+
+})
 </script>
 
 <template>
@@ -23,7 +33,11 @@ const sendMsg = (msg: string): void => {
       transition="opacity duration-300"
       :class="show ? 'opacity-100' : 'opacity-0'"
     >
-      我的扩展看板
+      <div class="flex flex-col">
+        <span>当前页信息</span>
+        <input v-model="storageDemo" type="text">
+        <input v-model="tabInfo.tabId" type="text">
+      </div>
     </div>
     <div
       class="flex w-10 h-10 rounded-full shadow cursor-pointer"

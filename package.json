@@ -2,7 +2,7 @@
   "name": "vitesse-webext",
   "displayName": "Vitesse WebExt",
   "version": "0.0.1",
-  "description": "[description]",
+  "description": "因为专注所以专业",
   "private": true,
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
