@@ -16,6 +16,10 @@ const pagePath = [
   {
     title: '赛事',
     path:'/matches'
+    },
+  {
+    title: '设置',
+    path:'/setting'
   },
 ]
 const navToPage = (path: string) => {
