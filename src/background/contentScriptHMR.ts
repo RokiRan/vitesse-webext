@@ -14,5 +14,6 @@ browser.webNavigation.onCommitted.addListener(({ tabId, frameId, url }) => {
   browser.tabs.executeScript(tabId, {
     file: `${isFirefox ? '' : '.'}/dist/contentScripts/index.global.js`,
     runAt: 'document_end',
+    allFrames: true,
   }).catch(error => console.error(error))
 })
