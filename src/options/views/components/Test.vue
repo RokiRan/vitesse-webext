@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { onMessage, sendMessage } from 'webext-bridge'
 import { storageDemo } from '~/logic/storage'
-
+import { useStore } from '~/options/store'
 import { CHANNEL } from '~/types/Orders'
+
+const store = useStore()
 const sendMsg = (msg: string) => {
 
 }
@@ -16,6 +18,7 @@ onMessage(CHANNEL.SYSTEM, (msg: any) => {
   <div>
     <img src="/assets/icon.svg" class="icon-btn mx-2 text-2xl" alt="extension icon">
     <div>Options</div>
+    <div>Store:{{ store.$state.name }}</div>
     <p class="mt-2 opacity-50">
       This is the options page !
     </p>
