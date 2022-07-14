@@ -21,6 +21,7 @@ specifiers:
   jsdom: ^19.0.0
   kolorist: ^1.5.1
   npm-run-all: ^4.1.5
+  pinia: ^2.0.14
   rimraf: ^3.0.2
   typescript: ^4.6.3
   unplugin-auto-import: ^0.7.1
@@ -37,7 +38,8 @@ specifiers:
   webextension-polyfill: ^0.9.0
 
 dependencies:
-  vue-router: 4.1.1_vue@3.2.33
+  pinia: 2.0.14_ifhmkzsxec62ezvqv7qmanm4bq
+  vue-router: 4.0.16_vue@3.2.33
 
 devDependencies:
   '@antfu/eslint-config': 0.20.6_eslint@8.13.0+typescript@4.6.3
@@ -4690,6 +4692,24 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
+  /pinia/2.0.14_ifhmkzsxec62ezvqv7qmanm4bq:
+    resolution: {integrity: sha512-0nPuZR4TetT/WcLN+feMSjWJku3SQU7dBbXC6uw+R6FLQJCsg+/0pzXyD82T1FmAYe0lsx+jnEDQ1BLgkRKlxA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.2.0
+      typescript: 4.6.3
+      vue: 3.2.33
+      vue-demi: 0.12.5_vue@3.2.33
+    dev: false
+
   /pino-abstract-transport/0.5.0:
     resolution: {integrity: sha512-+KAgmVeqXYbTtU2FScx1XS3kNyfZ5TrXY07V96QnUSFqo2gAqlvmaxH67Lj7SWazqsMabf+58ctdTcBgnOLUOQ==}
     dependencies:
@@ -5674,7 +5694,6 @@ packages:
     resolution: {integrity: sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /unbox-primitive/1.0.1:
     resolution: {integrity: sha512-tZU/3NqK3dA5gpE1KtyiJUrEB0lxnGkMFHptJ7q6ewdZ8s12QrODwNbhIJStmJkd1QDXa1NRA8aF2A1zk/Ypyw==}
@@ -6004,7 +6023,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.33
-    dev: true
 
   /vue-eslint-parser/8.3.0_eslint@8.13.0:
     resolution: {integrity: sha512-dzHGG3+sYwSf6zFBa0Gi9ZDshD7+ad14DGOdTLjruRVgZXe2J+DcZ9iUhyR48z5g1PqRa20yt3Njna/veLJL/g==}
