@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storageDemo } from '~/logic/storage'
+import testvue from './test.vue';
 </script>
 
 <template>
@@ -15,5 +16,6 @@ import { storageDemo } from '~/logic/storage'
     <div class="mt-4">
       Powered by Vite <pixelarticons-zap class="align-middle" />
     </div>
+    <testvue />
   </main>
 </template>
