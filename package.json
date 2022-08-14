@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
+    "dev:ns": "vite build --watch",
     "dev:prepare": "esno scripts/prepare.ts",
     "dev:web": "vite",
     "dev:js": "npm run build:js -- --mode development",
@@ -60,5 +61,9 @@
     "web-ext": "^6.8.0",
     "webext-bridge": "^5.0.4",
     "webextension-polyfill": "^0.9.0"
+  },
+  "dependencies": {
+    "pinia": "^2.0.18",
+    "vue-router": "4"
   }
 }
