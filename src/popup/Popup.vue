@@ -14,7 +14,7 @@ function openOptionsPage() {
       This is the popup page
     </p>
     <button class="btn mt-2" @click="openOptionsPage">
-      Open Options
+      控制台
     </button>
     <div class="mt-2">
       <span class="opacity-50">Storage:</span> {{ storageDemo }}

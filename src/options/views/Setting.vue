@@ -1,21 +1,21 @@
 <script lang="ts" setup>
 const configPath = {
   base: {
-    path: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div', // 必须是仅靠联赛的那一层div
+    path: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div', // 必须是仅靠联赛的那一层div
     begin: 0,
   },
   league: {
-    path: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%)',
+    path: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]',
     begin: 1,
-    name: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%) > div > div.LeagueHeaderCollapse_league-header__-b9m8 > div.LeagueHeaderCollapse_text__1TKS3',
+    name: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[1]/div[1]',
   },
   match: {
-    path: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%) > div > div:nth-child(2)', // 最靠近比赛的div
-    time: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%) > div > div:nth-child(2) > div:nth-child(%match%) > div > div.Row_wrapper__bOn8n.header > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA > div.Column_wrapper__9z8O4.Football_flexible-topic__5Msz5 > div.PeriodTime_time__rntWc > span',
-    scoreHome: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%) > div > div:nth-child(2) > div:nth-child(%match%) > div > div:nth-child(2) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_simple-market-box__28y8f > div > div:nth-child(1) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_match__2TPjE.Football_flexible-topic__5Msz5 > div.Football_score__3vSBL',
-    scoreAway: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%) > div > div:nth-child(2) > div:nth-child(%match%) > div > div:nth-child(2) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_simple-market-box__28y8f > div > div:nth-child(2) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_match__2TPjE.Football_flexible-topic__5Msz5 > div.Football_score__3vSBL',
-    home: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%) > div > div:nth-child(2) > div:nth-child(%match%) > div > div:nth-child(2) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_simple-market-box__28y8f > div > div:nth-child(1) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_match__2TPjE.Football_flexible-topic__5Msz5 > div',
-    away: '#sports > div > div > div.Container_routetView__2Rkdw > div > div:nth-child(2) > div > div:nth-child(%league%) > div > div:nth-child(2) > div:nth-child(%match%) > div > div:nth-child(2) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_simple-market-box__28y8f > div > div:nth-child(2) > div > div.Column_wrapper__9z8O4.Row_column__23hTl.Row_first-column__H2IKA.Football_match__2TPjE.Football_flexible-topic__5Msz5 > div',
+    path: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]', // 最靠近比赛的div
+    time: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[1]/div[1]/div[1]/div[2]',
+    scoreHome: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[1]/div',
+    scoreAway: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[2]/div/div[1]/div',
+    home: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[1]/text()',
+    away: '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[2]/div/div[1]/text()',
     begin: 1,
   },
   OuH1Pk: {
@@ -40,38 +40,93 @@ const calc = () => {
   const matchHomeNameScript = configPath.match.home
   const matchAwayNameScript = configPath.match.away
   const script = `
-  let matches = {};
-  let allLeagues = document.querySelector("${configPath.base.path}"); 
-  if(allLeagues.hasChildNodes()) {
-    for(let leagueIndex = 0; leagueIndex < allLeagues.childNodes.length; leagueIndex++){
-      let leagueName = allLeagues.childNodes[leagueIndex].querySelector("${leagueNameScript}");
-      if(!leagueName) continue;
-      leagueName = leagueName.innerText
-      matches[leagueName]=[];
-      let allMatches = allLeagues.childNodes[leagueIndex].querySelector("${matchContainerScript}".replace(/%league%/, leagueIndex + 1));
-      console.log('比赛：',allMatches)
-      if(allMatches && allMatches.hasChildNodes()){
-        for(let matchIndex = 0; matchIndex < allMatches.childNodes.length; matchIndex++){
-          let matchItem = {};
-          let home = document.querySelector("${matchHomeNameScript}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
-          let away = document.querySelector("${matchAwayNameScript}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
-          if(home && away){
-            matchItem.dz = home.innerText + '-vs-' + away.innerText
-          }
-          let homeScore = document.querySelector("${configPath.match.scoreHome}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
-          //console.log('比分：',"${configPath.match.scoreAway}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
-          let awayScore = document.querySelector("${configPath.match.scoreAway}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
-          if(homeScore && awayScore){
-            matchItem.score = homeScore.innerText+':'+awayScore.innerText
-          }else{
-            console.log('有不存在的比分:',homeScore,awayScore)
-          }
-          matches[leagueName].push(matchItem)
-        }
+  function doXpath(x) {
+    return document.evaluate(x, document.documentElement, null,
+      XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue || {}
+  }
+  const main = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div'; // 最外层
+  const leag = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[1]/div[1]'; // 联赛名
+  const matc = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]' // 比赛最外层
+  const zhuu = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[1]/text()'
+  const keeu = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[2]/div/div[1]/text()'
+  const zhus = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[1]/div'
+  const kees = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[2]/div/div[1]/div'
+  const time = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[1]/div[1]/div[1]/div[2]'
+  // 全场盘口
+  const pana = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]'
+  const paod = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[2]'
+  const paox = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div[2]/div/div/div[2]'
+  // 上半场盘口
+  const phna = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[3]/div[2]/div/div/div[1]'
+  const phod = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[1]/div/div[3]/div[2]/div/div/div[2]'
+  const phox = '//*[@id="sports"]/div/div/div[2]/div/div[2]/div/div[lsNum]/div/div[2]/div[matNum]/div/div[2]/div/div[1]/div/div[2]/div/div[3]/div[2]/div/div/div[2]'
+  let obj = {}
+  let allLea = doXpath(main).childNodes || []
+  for (let ls = 0; ls < allLea.length; ls++) {
+    //这里循环联赛
+    let leagueStr = leag.replace(/lsNum/g, ls + 1);
+    let lsObj = doXpath(leagueStr)
+    if (!lsObj) return
+    obj[lsObj.innerText] = {
+      lsName: lsObj.innerText,
+      matches: {
+
+      }
+    }
+    const allMatch = doXpath(matc.replace(/lsNum/g, ls + 1)).childNodes
+    // console.log('当前联赛比赛场数,', allMatch.length)
+    for (let m = 0; m < allMatch.length; m++) {
+      let zhuStr = doXpath(zhuu.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      let keStr = doXpath(keeu.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      let zhusStr = doXpath(zhus.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      let keusStr = doXpath(kees.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      let timeStr = doXpath(time.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+
+      let qcpk = doXpath(pana.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      let qcod = doXpath(paod.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      let qcox = doXpath(paox.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      const dz = zhuStr.data + ' -vs- ' + keStr.data
+      const mBf = zhusStr.innerText + '-' + keusStr.innerText
+      if (!qcpk.innerText) continue
+      let pkd = qcpk.innerText.replace(/大 /g, '')
+      if (pkd.indexOf('/') >= 0) {
+        pkd = '(' + eval(pkd.replace(/\//g, "+")) / 2 + ')';
+      } else {
+        pkd = '(' + pkd + ')';
+      }
+      if (!zhuStr.data || !zhusStr.innerText) continue
+      obj[lsObj.innerText].matches[dz] = {
+        mDuizhen: dz,
+        mTime: timeStr.innerText,
+        mBf: mBf,
+        '全场大/小': {},
+        '上半场大/小': {}
+      }
+      obj[lsObj.innerText].matches[dz]['全场大/小'][pkd] =
+      {
+        pk: pkd,
+        odd_D: parseFloat(qcod.innerText),
+        odd_X: parseFloat(qcox.innerText),
+        odd_D_Selecter: paod.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1),
+        odd_X_Selecter: paox.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1)
+      }
+      let bcpk = doXpath(phna.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1))
+      if (!bcpk.innerText) continue
+      let pkx = bcpk.innerText.replace(/大 /g, '')
+      if (pkx.indexOf('/') >= 0) {
+        pkx = '(' + eval(pkx.replace(/\//g, "+")) / 2 + ')';
+      } else {
+        pkx = '(' + pkx + ')';
+      }
+      obj[lsObj.innerText].matches[dz]['上半场大/小'][pkx] = {
+        pk: pkx,
+        odd_D: parseFloat(doXpath(phod.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1)).innerText),
+        odd_X: parseFloat(doXpath(phox.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1)).innerText),
+        odd_D_Selecter: phod.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1),
+        odd_X_Selecter: phox.replace(/lsNum/g, ls + 1).replace(/matNum/g, m + 1)
       }
     }
   }
-  console.log(matches);
   `
   oddScript.value = script
 }
@@ -81,12 +136,13 @@ const calc = () => {
   <div>
     <div>设置页面</div>
     <ul>
-      <li v-for="(item,key) in configPath" :key="key">
+      <li v-for="(item, key) in configPath" :key="key">
         <div class="flex">
           <div class="px-2 py-1 mt-2 min-w-16 text-left">
             {{ key }}:
           </div>
-          <input v-model="item.path" type="text" class="flex-1 border dark:bg-transparent border-gray-400 rounded px-2 py-1 mt-2">
+          <input v-model="item.path" type="text"
+            class="flex-1 border dark:bg-transparent border-gray-400 rounded px-2 py-1 mt-2">
         </div>
       </li>
     </ul>

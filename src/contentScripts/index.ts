@@ -2,6 +2,7 @@
 import { onMessage } from 'webext-bridge'
 import { createApp } from 'vue'
 import App from './views/App.vue'
+import { CHANNEL } from '~/types/Orders'
 
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
@@ -11,7 +12,9 @@ import App from './views/App.vue'
   onMessage('tab-prev', ({ data }) => {
     console.log(`[vitesse-webext] Navigate from page "${data.title}"`)
   })
-
+  onMessage(CHANNEL.SYSTEM2, ({ data }) => {
+    console.log(`[vitesse-webext] Navigate from options "${data}"`)
+  })
   // mount component to context window
   const container = document.createElement('div')
   const root = document.createElement('div')

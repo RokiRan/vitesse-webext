@@ -5,12 +5,10 @@ import { useStore } from '~/options/store'
 import { CHANNEL } from '~/types/Orders'
 
 const store = useStore()
-const sendMsg = (msg: string) => {
-
-}
-onMessage(CHANNEL.SYSTEM, (msg: any) => {
-  // eslint-disable-next-line no-console
-  console.log(msg)
+const registeredForm = ref<any[]>([])
+onMessage(CHANNEL.SYSTEM_REGISTER, (msg: any) => {
+  if (!registeredForm.value.includes(msg.sender.tabId))
+    registeredForm.value.push(msg.sender.tabId)
 })
 </script>
 
@@ -26,10 +24,27 @@ onMessage(CHANNEL.SYSTEM, (msg: any) => {
     <input v-model="storageDemo" class="border dark:bg-transparent border-gray-400 rounded px-2 py-1 mt-2">
 
     <div class="mt-4">
-      Powered by Vite <pixelarticons-menu class="align-middle" />
+      Powered by Vite
+      <pixelarticons-menu class="align-middle" />
     </div>
-    <button class="border-dark-50 border-solid" @click="sendMsg('hello world:')">
-      send test message
-    </button>
+    <h4>已注册窗口</h4>
+    <ul>
+      <li v-for="item in registeredForm" :key="item">
+        {{ item }}
+      </li>
+    </ul>
+    <div>
+      <button class="border-dark-50 border-solid btn"
+        @click="sendMessage(CHANNEL.SYSTEM, 'hi： background-js', 'background')">
+        send message to background
+      </button>
+      <br>
+      <button class="border-dark-50 border-solid btn mt-5" @click="sendMessage(CHANNEL.SYSTEM2, '你好，content-js', {
+        tabId: registeredForm[0],
+        context: 'content-script',
+      })">
+        send message to content-script
+      </button>
+    </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 import type { Tabs } from 'webextension-polyfill'
 import browser from 'webextension-polyfill'
 import { onMessage, sendMessage } from 'webext-bridge'
-
+import { CHANNEL } from '~/types/Orders'
 browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console
   console.log('Extension installed')
@@ -11,7 +11,7 @@ let previousTabId = 0
 
 // communication example: send previous tab title from background page
 // see shim.d.ts for type declaration
-browser.tabs.onActivated.addListener(async({ tabId }) => {
+browser.tabs.onActivated.addListener(async ({ tabId }) => {
   if (!previousTabId) {
     previousTabId = tabId
     return
@@ -32,7 +32,7 @@ browser.tabs.onActivated.addListener(async({ tabId }) => {
   sendMessage('tab-prev', { title: tab.title }, { context: 'content-script', tabId })
 })
 
-onMessage('get-current-tab', async() => {
+onMessage('get-current-tab', async () => {
   try {
     const tab = await browser.tabs.get(previousTabId)
     return {
@@ -44,4 +44,9 @@ onMessage('get-current-tab', async() => {
       title: undefined,
     }
   }
+})
+
+onMessage(CHANNEL.SYSTEM, ({ data }) => {
+  // eslint-disable-next-line no-console
+  console.log(`[vitesse-webext - background] Navigate from options "${data}"`)
 })

@@ -1,7 +1,9 @@
 {
   "cSpell.words": [
     "pinia",
-    "Vitesse"
+    "Vitesse",
+    "webext",
+    "windi"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "volar.tsPlugin": true,

@@ -1,5 +1,7 @@
 export enum CHANNEL {
   SYSTEM = 'channel_system',
+  SYSTEM2 = 'channel_test',
+  SYSTEM_REGISTER = 'channel_register',
 }
 export enum CMD {
   TEST_CMD,
