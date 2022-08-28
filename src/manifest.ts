@@ -40,6 +40,7 @@ export async function getManifest() {
         matches: ['http://*/*', 'https://*/*'],
         js: ['./dist/contentScripts/index.global.js'],
         all_frames: true,
+        run_at: 'document_end'
       },
     ],
     web_accessible_resources: [

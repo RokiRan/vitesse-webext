@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 console.info('[vitesse-webext] Hello world from inject script')
 
-export const inject = (jsPath: string) => {
+export const inject = (jsPath: string = '') => {
     jsPath = jsPath || 'js/inject.js';
     var temp = document.createElement('script');
     temp.setAttribute('type', 'text/javascript');
@@ -9,7 +9,7 @@ export const inject = (jsPath: string) => {
     temp.src = chrome.extension.getURL(jsPath);
     temp.onload = function () {
         // 放在页面不好看，执行完后移除掉
-        this.parentNode.removeChild(this);
+        // this.parentNode.removeChild(this);
     };
     document.body.appendChild(temp);
 }

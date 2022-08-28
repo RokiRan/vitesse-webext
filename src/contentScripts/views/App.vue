@@ -5,6 +5,9 @@ import { CHANNEL } from '~/types/Orders'
 import 'virtual:windi.css'
 const [show, toggle] = useToggle(false)
 const w = window
+const call = () => {
+  sendMessage(CHANNEL.SYSTEM_CALL, 'callLocal', 'window')
+}
 </script>
 
 <template>
@@ -15,6 +18,7 @@ const w = window
       <button class="btn" @click="sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')">
         注册窗口
       </button>
+      <button class="btn" @click="call">调用本地方法</button>
     </div>
     <div class="flex w-10 h-10 rounded-full shadow cursor-pointer" bg="teal-600 hover:teal-700" @click="toggle()">
       <pixelarticons-power class="block m-auto text-white text-lg" />
