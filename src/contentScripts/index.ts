@@ -14,6 +14,8 @@ import { CHANNEL } from '~/types/Orders'
   })
   onMessage(CHANNEL.SYSTEM2, ({ data }) => {
     console.log(`[vitesse-webext] Navigate from options "${data}"`)
+    // console.log('尝试获取数据', (<HTMLDivElement>document.querySelector("#A_main > div > div > div.articles > div > div > div:nth-child(1) > div.item-content > div > div.item-content > h5 > a"))?.click())
+
   })
   // mount component to context window
   const container = document.createElement('div')
@@ -24,6 +26,14 @@ import { CHANNEL } from '~/types/Orders'
   styleEl.setAttribute('href', browser.runtime.getURL('dist/contentScripts/style.css'))
   shadowDOM.appendChild(styleEl)
   shadowDOM.appendChild(root)
+
+
+  const inject = document.createElement('script')
+  inject.setAttribute('type', 'text/javascript')
+  inject.src = browser.runtime.getURL('dist/injectScripts/index.inject.js')
+  shadowDOM.appendChild(inject)
+
   document.body.appendChild(container)
+  
   createApp(App).mount(root)
 })()

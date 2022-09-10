@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-console.info('[vitesse-webext] Hello world from inject script')
+console.info('[vitesse-webext] 这是注入的工具JS')
 
 export const inject = (jsPath: string = '') => {
     jsPath = jsPath || 'js/inject.js';

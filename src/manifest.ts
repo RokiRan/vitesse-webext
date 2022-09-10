@@ -33,6 +33,8 @@ export async function getManifest() {
       'tabs',
       'storage',
       'activeTab',
+      'proxy',
+      'webRequest',
     ],
     host_permissions: ['*://*/*'],
     content_scripts: [
@@ -45,7 +47,7 @@ export async function getManifest() {
     ],
     web_accessible_resources: [
       {
-        resources: ['dist/contentScripts/style.css'],
+        resources: ['dist/contentScripts/style.css', 'dist/injectScripts/index.inject.js'],
         matches: ['<all_urls>'],
       },
     ],

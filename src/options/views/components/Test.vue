@@ -3,6 +3,7 @@ import { onMessage, sendMessage } from 'webext-bridge'
 import { storageDemo } from '~/logic/storage'
 import { useStore } from '~/options/store'
 import { CHANNEL } from '~/types/Orders'
+import browser from 'webextension-polyfill'
 
 const store = useStore()
 const registeredForm = ref<any[]>([])
@@ -10,6 +11,8 @@ onMessage(CHANNEL.SYSTEM_REGISTER, (msg: any) => {
   if (!registeredForm.value.includes(msg.sender.tabId))
     registeredForm.value.push(msg.sender.tabId)
 })
+
+// browser.webRequest.onCompleted
 </script>
 
 <template>

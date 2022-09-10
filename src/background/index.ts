@@ -50,3 +50,11 @@ onMessage(CHANNEL.SYSTEM, ({ data }) => {
   // eslint-disable-next-line no-console
   console.log(`[vitesse-webext - background] Navigate from options "${data}"`)
 })
+
+browser.webRequest.onResponseStarted.addListener(function (details) {
+  console.log('------------>>>', details.url);
+  return {cancel: details.url.indexOf("://www.evil.com/") != -1};
+},
+{urls: ["<all_urls>"]},
+["responseHeaders"]
+);
