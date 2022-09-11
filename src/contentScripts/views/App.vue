@@ -16,8 +16,10 @@ window.addEventListener('hookAjaxResponse', ({ detail }) => {
 onMessage(CHANNEL.SYSTEM_OPEN_ASIDE, data => {
   toggle();
 })
-sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')
-
+// sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')
+const registerTabOrIframe = () => {
+  browser.runtime.sendMessage(undefined, 'registerTab');
+}
 </script>
 
 <template>
@@ -46,7 +48,7 @@ sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')
     <button class="btn" @click="sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')">
       注册窗口
     </button>
-    <button class="btn" @click="call">调用本地方法</button>
+    <button class="btn" @click="registerTabOrIframe">原生发送消息</button>
   </div>
 </template>
 <style>

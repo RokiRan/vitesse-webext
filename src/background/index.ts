@@ -6,7 +6,9 @@ browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console
   console.log('Extension installed')
 })
-
+// browser.runtime.onMessage.addListener((msg, sender) => {
+//   console.log('收到原生消息-backgroundJS', msg, sender)
+// })
 let previousTabId = 0
 
 // communication example: send previous tab title from background page
