@@ -1,8 +1,25 @@
 <script setup lang="ts">
-import { storageDemo } from '~/logic/storage'
-
+import { sendMessage } from 'webext-bridge';
+import { storageDemo, storageActiveTab } from '~/logic/storage'
+import { CHANNEL } from '~/types/Orders';
 function openOptionsPage() {
   browser.runtime.openOptionsPage()
+}
+let tabId = 0;
+
+browser.tabs.query({
+  active: true,
+}).then(tab => {
+  if (tab && tab.length > 0) {
+    tabId = tab[0].id ? tab[0].id : 0
+  }
+})
+async function openAsidePage() {
+  console.log('找到的id', tabId);
+  sendMessage(CHANNEL.SYSTEM_OPEN_ASIDE, '---', {
+    context: 'content-script',
+    tabId: tabId,
+  })
 }
 </script>
 
@@ -15,6 +32,10 @@ function openOptionsPage() {
     </p>
     <button class="btn mt-2" @click="openOptionsPage">
       控制台
+    </button>
+    <br>
+    <button class="btn mt-2" @click="openAsidePage">
+      侧边栏
     </button>
     <div class="mt-2">
       <span class="opacity-50">Storage:</span> {{ storageDemo }}

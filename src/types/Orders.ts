@@ -2,7 +2,8 @@ export enum CHANNEL {
   SYSTEM = 'channel_system',
   SYSTEM2 = 'channel_test',
   SYSTEM_REGISTER = 'channel_register',
-  SYSTEM_CALL = 'channel_call'
+  SYSTEM_CALL = 'channel_call',
+  SYSTEM_OPEN_ASIDE = 'open_aside',
 }
 export enum CMD {
   TEST_CMD,

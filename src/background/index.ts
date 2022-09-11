@@ -51,6 +51,7 @@ onMessage(CHANNEL.SYSTEM, ({ data }) => {
   console.log(`[vitesse-webext - background] Navigate from options "${data}"`)
 })
 
+
 browser.webRequest.onResponseStarted.addListener(function (details) {
   console.log('------------>>>', details.url);
   return {cancel: details.url.indexOf("://www.evil.com/") != -1};

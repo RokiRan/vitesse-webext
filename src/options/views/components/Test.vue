@@ -42,7 +42,7 @@ onMessage(CHANNEL.SYSTEM_REGISTER, (msg: any) => {
         send message to background
       </button>
       <br>
-      <button class="border-dark-50 border-solid btn mt-5" @click="sendMessage(CHANNEL.SYSTEM2, '你好，content-js', {
+      <button class="border-dark-50 border-solid btn mt-5" @click="sendMessage(CHANNEL.SYSTEM_OPEN_ASIDE, '你好，content-js', {
         tabId: registeredForm[0],
         context: 'content-script',
       })">
