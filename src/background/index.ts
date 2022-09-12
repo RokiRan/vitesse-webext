@@ -2,15 +2,17 @@ import type { Tabs } from 'webextension-polyfill'
 import browser from 'webextension-polyfill'
 import { onMessage, sendMessage } from 'webext-bridge'
 import { CHANNEL } from '~/types/Orders'
+import { clearStorage } from '~/logic'
 browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console
   console.log('Extension installed')
+  // 清空一下storage
+  // clearStorage();
 })
 // browser.runtime.onMessage.addListener((msg, sender) => {
 //   console.log('收到原生消息-backgroundJS', msg, sender)
 // })
 let previousTabId = 0
-
 // communication example: send previous tab title from background page
 // see shim.d.ts for type declaration
 browser.tabs.onActivated.addListener(async ({ tabId }) => {

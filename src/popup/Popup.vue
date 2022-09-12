@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { sendMessage } from 'webext-bridge';
-import { storageDemo, storageActiveTab } from '~/logic/storage'
+import { storageDemo } from '~/logic/storage'
 import { CHANNEL } from '~/types/Orders';
 function openOptionsPage() {
   browser.runtime.openOptionsPage()

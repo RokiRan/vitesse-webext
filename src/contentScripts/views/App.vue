@@ -7,18 +7,24 @@ import browser from 'webextension-polyfill'
 import 'virtual:windi.css'
 const [show, toggle] = useToggle(false)
 const isInIframe = ref(self !== top);
-const call = () => {
-  sendMessage(CHANNEL.SYSTEM_CALL, 'callLocal', 'window')
-}
 window.addEventListener('hookAjaxResponse', ({ detail }) => {
   console.log('收到消息', detail!)
 })
 onMessage(CHANNEL.SYSTEM_OPEN_ASIDE, data => {
   toggle();
 })
+onMessage(CHANNEL.SYSTEM_TEST_SPIDER, data => {
+  const result = doXpath(data.data as unknown as string);
+  console.log('测试爬虫', data.data, result)
+})
 // sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')
 const registerTabOrIframe = () => {
   browser.runtime.sendMessage(undefined, 'registerTab');
+}
+function doXpath(x: string) {
+  const res = document.evaluate(x, document.documentElement, null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+  return res ? (res as HTMLElement).innerText : ""
 }
 </script>
 
@@ -37,7 +43,7 @@ const registerTabOrIframe = () => {
     </div>
   </div> -->
   <div class="w-10 h-10 cursor-pointer fixed top-0 left-0 iframe-btn" v-if="isInIframe"
-    @dblclick.prevent.self="toggle()">
+    :style="{top: (Math.random()*50) + 'px', left: (Math.random()*50) + 'px'}" @dblclick.prevent.self="toggle()">
 
   </div>
   <div class="h-100vh w-20vw fixed font-sans select-none top-0 leading-1em bg-aside" :class="show ? 'show' : ''"
@@ -45,10 +51,7 @@ const registerTabOrIframe = () => {
     <div class="absolute top-2 right-2 cursor-pointer" @click="toggle()">
       <pixelarticons-close class="block m-auto text-white text-lg" />
     </div>
-    <button class="btn" @click="sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')">
-      注册窗口
-    </button>
-    <button class="btn" @click="registerTabOrIframe">原生发送消息</button>
+    <button class="btn" @click="registerTabOrIframe">注册窗口</button>
   </div>
 </template>
 <style>

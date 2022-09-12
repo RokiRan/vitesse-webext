@@ -12,6 +12,7 @@ import WindiCSS from 'vite-plugin-windicss'
 import windiConfig from './windi.config'
 import { isDev, port, r } from './scripts/utils'
 import { MV3Hmr } from './vite-mv3-hmr'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
 export const sharedConfig: UserConfig = {
   root: r('src'),
@@ -48,6 +49,7 @@ export const sharedConfig: UserConfig = {
         IconsResolver({
           componentPrefix: '',
         }),
+        AntDesignVueResolver(),
       ],
     }),
 
@@ -74,6 +76,14 @@ export const sharedConfig: UserConfig = {
       'vue-demi',
     ],
   },
+  // TODO 为什么使用less不行
+  // css: {
+  //   preprocessorOptions: {
+  //     less: {
+  //       javascriptEnabled: true,
+  //     }
+  //   }
+  // }
 }
 
 export default defineConfig(({ command }) => ({
