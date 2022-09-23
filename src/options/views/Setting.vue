@@ -59,7 +59,7 @@ const calc = () => {
             matchItem.dz = home.innerText + '-vs-' + away.innerText
           }
           let homeScore = document.querySelector("${configPath.match.scoreHome}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
-          //console.log('比分：',"${configPath.match.scoreAway}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
+          console.log('比分：',"${configPath.match.scoreHome}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
           let awayScore = document.querySelector("${configPath.match.scoreAway}".replace(/%league%/, leagueIndex + 1).replace(/%match%/, matchIndex + 1))
           if(homeScore && awayScore){
             matchItem.score = homeScore.innerText+':'+awayScore.innerText
