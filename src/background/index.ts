@@ -56,10 +56,10 @@ onMessage(CHANNEL.SYSTEM, ({ data }) => {
 })
 
 
-browser.webRequest.onResponseStarted.addListener(function (details) {
-  console.log('------------>>>', details.url);
-  return {cancel: details.url.indexOf("://www.evil.com/") != -1};
-},
-{urls: ["<all_urls>"]},
-["responseHeaders"]
-);
+// browser.webRequest.onResponseStarted.addListener(function (details) {
+//   console.log('------------>>>', details.url);
+//   return {cancel: details.url.indexOf("://www.evil.com/") != -1};
+// },
+// {urls: ["<all_urls>"]},
+// ["responseHeaders"]
+// );

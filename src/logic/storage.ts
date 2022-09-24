@@ -49,5 +49,5 @@ export function clearStorage(key: string) {
 
 export function resetRegistered() {
     storage.local.remove('webext-registered-tab');
-    storage.local.remove('webext-sb-spider');
+    // storage.local.remove('webext-sb-spider');
 }

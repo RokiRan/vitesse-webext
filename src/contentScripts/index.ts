@@ -36,7 +36,21 @@ import { CHANNEL } from '~/types/Orders'
   inject.src = browser.runtime.getURL('dist/injectScripts/index.inject.js')
   shadowDOM.appendChild(inject)
 
-  document.body.appendChild(container)
-  
   createApp(App).mount(root)
+  injectBody(container)
 })()
+
+function injectBody(container: HTMLDivElement) {
+  new Promise((resolve) => {
+    console.log('try inject contentJS');
+    setTimeout(() => {
+      if (document.body) {
+        document.body.appendChild(container)
+        resolve(true);
+      } else {
+        injectBody(container);
+        resolve(false)
+      }
+    }, 200);
+  })
+}

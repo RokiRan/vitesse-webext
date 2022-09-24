@@ -14,8 +14,9 @@ onMessage(CHANNEL.SYSTEM_OPEN_ASIDE, data => {
   toggle();
 })
 onMessage(CHANNEL.SYSTEM_TEST_SPIDER, data => {
+  console.log('测试爬虫', data.data)
   const result = doXpath(data.data as unknown as string);
-  console.log('测试爬虫', data.data, result)
+  console.log('测试爬虫-结果', result)
 })
 // sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')
 const registerTabOrIframe = () => {
@@ -25,6 +26,10 @@ function doXpath(x: string) {
   const res = document.evaluate(x, document.documentElement, null,
     XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
   return res ? (res as HTMLElement).innerText : ""
+}
+async function testCros() {
+  const res = await fetch('https://ihave2.work')
+  console.log(res);
 }
 </script>
 
@@ -52,6 +57,7 @@ function doXpath(x: string) {
       <pixelarticons-close class="block m-auto text-white text-lg" />
     </div>
     <button class="btn" @click="registerTabOrIframe">注册窗口</button>
+    <button class="btn" @click="testCros">测试跨域</button>
   </div>
 </template>
 <style>

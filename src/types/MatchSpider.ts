@@ -19,6 +19,7 @@ interface diffIndex{
 interface homeAway {
     home: string,
     away: string,
+    pk?: string,
 }
 
 export { SpiderRule };
