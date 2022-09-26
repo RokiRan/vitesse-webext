@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { testSpiderObj, registeredWindows } from '~/logic/storage'
-import { Select, message } from 'ant-design-vue';
+import { Select, message, Button } from 'ant-design-vue';
 import { sendMessage } from 'webext-bridge';
 import { CHANNEL } from '~/types/Orders';
 import MyInput from './components/Input.vue';
@@ -16,6 +16,27 @@ function testSpider(xpath: string) {
     frameId: target[0].frameId,
   })
 }
+function test() {
+  const res = getLength(testSpiderObj.value.leagueNameFirst, testSpiderObj.value.leagueNameSecond)
+  console.log(res)
+}
+function getLength(first: string, second: string) {
+  const index = getIndex(first, second);
+  if (index === 0) return console.log('getLength', '未找到元素')
+
+}
+// 对比xpath，获取循环的下标
+function getIndex(first: string, second: string) {
+  if (!first || !second) {
+    return 0
+  }
+  for (let i = 0; i < Math.min(first.length, second.length); i++) {
+    if (first.charAt(i) !== second.charAt(i)) {
+      return i;
+    }
+  }
+  return 0;
+}
 </script>
 
 <template>
@@ -25,95 +46,61 @@ function testSpider(xpath: string) {
       <Select v-model:value="selectWindow" class="w-[calc(100%)]"
         :options="registeredWindows.map(item => ({ label: item.title + ':' + item.frameId, key: (item.frameId + '' + item.tabId), value: (item.frameId + '' + item.tabId) }))"></Select>
     </div>
-
-    <div class="w-[calc(100%)]">
-      <table>
-        <tbody>
-          <tr>
-            <td rowspan="6">联赛</td>
-          </tr>
-          <tr>
-            <td>比分</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <Button @click="test">测试</Button>
     <div class="w-[calc(100%)]">
       <table class="border border-collapse w-[calc(100%+0rem)]">
         <tbody>
-          <tr class="border">
+          <tr>
             <td colspan="5">
-              <MyInput v-model:value="testSpiderObj.league.first" title="联赛1" @testClick="testSpider" />
-            </td>
-          </tr>
-          <tr>
-            <td rowspan="4">比赛1</td>
-            <td>
-              <MyInput v-model:value="testSpiderObj.matchName.home" title="主队1" @testClick="testSpider" />
-            </td>
-            <td rowspan="2">赔率1
-            </td>
-            <td rowspan="2">
-              <MyInput v-model:value="testSpiderObj.oddOu.first.pk" title="盘口" @testClick="testSpider" />
-            </td>
-            <td>
-              <MyInput v-model:value="testSpiderObj.oddOu.first.home" title="全-大" @testClick="testSpider" />
-            </td>
-            <td>
-              <MyInput v-model:value="testSpiderObj.oddOu.second.home" title="半-大" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.leagueNameFirst" title="联赛1" @testClick="testSpider" />
             </td>
           </tr>
           <tr>
             <td>
-              <MyInput v-model:value="testSpiderObj.matchName.away" title="客队1" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.matchNameHomeFirst" title="主队1" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.matchNameAwayFirst" title="客队" @testClick="testSpider" />
             </td>
             <td>
-              <MyInput v-model:value="testSpiderObj.oddOu.first.away" title="全-小" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.matchScoreHome" title="主队比分" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.matchScoreAway" title="客队比分" @testClick="testSpider" />
             </td>
             <td>
-              <MyInput v-model:value="testSpiderObj.oddOu.first.away" title="半-小" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.matchTime" title="时间" @testClick="testSpider" />
+            </td>
+
+            <td>
+              <MyInput v-model:value="testSpiderObj.odd.OU.whole.pk" title="盘口" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.odd.OU.whole.home" title="主" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.odd.OU.whole.away" title="客" @testClick="testSpider" />
+            </td>
+            <td>
+              <MyInput v-model:value="testSpiderObj.odd.OU.half.pk" title="盘口" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.odd.OU.half.home" title="主" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.odd.OU.half.away" title="客" @testClick="testSpider" />
             </td>
           </tr>
           <tr>
-            <td></td>
-            <td colspan="">
-              赔率2
-            </td>
+            <td colspan="3"></td>
             <td colspan="2">
-              <MyInput v-model:value="testSpiderObj.oddOu.second.home" title="全-大" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.oddIndex" title="盘口2" @testClick="testSpider" />
             </td>
           </tr>
           <tr>
-            <td colspan="2">
-              <MyInput v-model:value="testSpiderObj.matchName.home" title="主队1" @testClick="testSpider" />
-            </td>
-            <td colspan="2">
-              <MyInput v-model:value="testSpiderObj.event" title="事件" @testClick="testSpider" />
-            </td>
-          </tr>
-          <tr>
-            <td>比赛2</td>
-            <td colspan="4">
-              <MyInput v-model:value="testSpiderObj.match.second" title="主队2" @testClick="testSpider" />
-            </td>
-          </tr>
-          <tr class="border">
             <td colspan="5">
-              <MyInput v-model:value="testSpiderObj.league.second" title="联赛2" @testClick="testSpider" />
+              <MyInput v-model:value="testSpiderObj.matchNameHomeSecond" title="主队2" @testClick="testSpider" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <MyInput v-model:value="testSpiderObj.leagueNameSecond" title="联赛2" @testClick="testSpider" />
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div>
-      <code>
+    <code>
         {{testSpiderObj}}
-      </code>
-    </div>
+    </code>
   </div>
 </template>
 

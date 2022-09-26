@@ -12,6 +12,23 @@ interface SpiderRule {
     },
     event: string,
 }
+interface PlatformLayout {
+    leagueNameFirst: string;
+    leagueNameSecond: string;
+    matchNameHomeFirst: string;
+    matchNameAwayFirst: string;
+    matchNameHomeSecond: string;
+    matchScoreHome: string;
+    matchScoreAway: string;
+    matchTime: string;
+    odd: {
+        OU: {
+            whole:homeAway,
+            half: homeAway,
+        }
+    },
+    oddIndex: string, // 第二行赔率的盘口
+}
 interface diffIndex{
     first: string,
     second: string,
@@ -22,4 +39,4 @@ interface homeAway {
     pk?: string,
 }
 
-export { SpiderRule };
+export { SpiderRule, PlatformLayout };

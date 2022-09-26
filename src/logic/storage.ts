@@ -1,43 +1,33 @@
 import { useStorageLocal } from '~/composables/useStorageLocal'
 import { storage } from 'webextension-polyfill'
 import { TabItem } from '~/types/Tab'
-import { SpiderRule } from '~/types/MatchSpider';
+import { PlatformLayout } from '~/types/MatchSpider';
 
 const registeredArr = <TabItem[]>[];
-const sbSpider = <SpiderRule>{
-    league: {
-        first: '',
-        second: '',
-    },
-    leagueName: '',
-    match: {
-        first: '',
-        second: '',
-    },
-    matchName: {
-        home: '',
-        away: '',
-    },
-    odd: {
-        first: '',
-        second: '',
-    },
+const sbSpider = <PlatformLayout>{
+    leagueNameFirst: '',
+    leagueNameSecond: '',
+    matchNameHomeFirst: '',
+    matchNameAwayFirst: '',
+    matchNameHomeSecond: '',
+    matchScoreHome: '',
+    matchScoreAway: '',
     matchTime: '',
-    matchScore: {
-        home: '',
-        away: '',
+    odd: {
+        OU: {
+            whole: {
+                home: '',
+    away: '',
+    pk: '',
+            },
+            half: {
+                home: '',
+    away: '',
+    pk: '',
+            },
+        }
     },
-    oddOu: {
-        first: {
-            home: '',
-            away: '',
-        },
-        second: {
-            home: '',
-            away: '',
-        },
-    },
-    event: '',
+    oddIndex: '',
 };
 export const storageDemo = useStorageLocal('webext-demo', 'Storage Demo', { listenToStorageChanges: true })
 export const registeredWindows = useStorageLocal('webext-registered-tab', registeredArr, { listenToStorageChanges: true })
@@ -46,6 +36,10 @@ export const testSpiderObj = useStorageLocal('webext-sb-spider', sbSpider, { lis
 export function clearStorage(key: string) {
     storage.local.remove(key);
 }
+export function clearBaseStorage() {
+    storage.local.remove('webext-sb-spider');
+}
+
 
 export function resetRegistered() {
     storage.local.remove('webext-registered-tab');

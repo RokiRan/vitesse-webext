@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMessage, sendMessage } from 'webext-bridge'
-import { registeredWindows, storageDemo } from '~/logic/storage'
+import { registeredWindows, storageDemo, clearBaseStorage } from '~/logic/storage'
 import { useStore } from '~/options/store'
 import { CHANNEL } from '~/types/Orders'
 import browser from 'webextension-polyfill'
@@ -65,6 +65,9 @@ const showSettingPanel = function () {
       <br>
       <button class="border-dark-50 border-solid btn mt-5" @click="resetRegistered()">
         重置
+      </button>
+      <button class="border-dark-50 border-solid btn mt-5" @click="clearBaseStorage()">
+        重置BASE
       </button>
     </div>
   </div>

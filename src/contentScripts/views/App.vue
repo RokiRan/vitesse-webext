@@ -16,16 +16,22 @@ onMessage(CHANNEL.SYSTEM_OPEN_ASIDE, data => {
 onMessage(CHANNEL.SYSTEM_TEST_SPIDER, data => {
   console.log('测试爬虫', data.data)
   const result = doXpath(data.data as unknown as string);
+  if (result.childNodes && result.childNodes.length > 1) {
+    console.log('childNode', result.childNodes.length);
+  } else {
+    console.log('innerText', result.innerText)
+  }
   console.log('测试爬虫-结果', result)
 })
 // sendMessage(CHANNEL.SYSTEM_REGISTER, 'register', 'options')
 const registerTabOrIframe = () => {
-  browser.runtime.sendMessage(undefined, 'registerTab');
+  browser.runtime.sendMessage('', 'registerTab');
 }
 function doXpath(x: string) {
   const res = document.evaluate(x, document.documentElement, null,
-    XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
-  return res ? (res as HTMLElement).innerText : ""
+    XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+  console.log('执行', res);
+  return res.singleNodeValue as HTMLElement;
 }
 async function testCros() {
   const res = await fetch('https://ihave2.work')

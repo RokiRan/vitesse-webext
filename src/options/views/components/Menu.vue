@@ -21,6 +21,10 @@ const pagePath = [
     title: '设置',
     path: '/setting',
   },
+  {
+    title: '测试',
+    path: '/test',
+  },
 ]
 const navToPage = (path: string) => {
   router.push({
@@ -31,7 +35,8 @@ const navToPage = (path: string) => {
 
 <template>
   <div class="flex flex-col min-w-25 dark:bg-dark-50 dark:font-light">
-    <div v-for="menu in pagePath" :key="menu.title" class="hover:cursor-pointer px-8 py-5" @click="navToPage(menu.path)">
+    <div v-for="menu in pagePath" :key="menu.title" class="hover:cursor-pointer px-8 py-5"
+      @click="navToPage(menu.path)">
       {{ menu.title }}
     </div>
   </div>
