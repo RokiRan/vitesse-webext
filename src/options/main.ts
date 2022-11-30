@@ -1,10 +1,13 @@
 import { createApp } from 'vue'
+import Antd from 'ant-design-vue'
 import App from './Options.vue'
-import Antd from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.css';
+import 'ant-design-vue/dist/antd.css'
 import '../styles'
 import router from './router'
 import { pinia } from './store'
+import { io } from 'socket.io-client'
+
+const socket = io('http://localhost:4000')
 
 const app = createApp(App)
 app.use(router)

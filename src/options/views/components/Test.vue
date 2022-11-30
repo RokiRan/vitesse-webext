@@ -18,13 +18,22 @@ const selectWindow = ref<string | number>('');
 // browser.webRequest.onCompleted
 browser.runtime.onMessage.addListener((msg, sender) => {
   console.log('收到原生消息-options', msg, sender)
-  if (msg === 'registerTab' && sender.tab && sender.tab.id && !registeredWindows.value.find(tab => tab.frameId == sender.frameId && tab.tabId === sender.tab?.id)) {
-    registeredWindows.value.push({
-      tabId: sender.tab!.id!,
-      frameId: sender.frameId,
-      title: sender.tab!.title || '',
-    })
-  }
+  // if (msg === 'registerTab' && sender.tab && sender.tab.id && !registeredWindows.value.find(tab => tab.frameId == sender.frameId && tab.tabId === sender.tab?.id)) {
+  // registeredWindows.value.push({
+  //   tabId: sender.tab!.id!,
+  //   frameId: sender.frameId,
+  //   title: sender.tab!.title || '',
+  // })
+  registeredWindows.value = [{
+    tabId: sender.tab!.id!,
+    frameId: sender.frameId,
+    title: sender.tab!.title || '',
+  }]
+  // }
+})
+
+onMessage(CHANNEL.SYSTEM_RESPONSE, data => {
+  console.log('收到执行结果', data)
 })
 const showSettingPanel = function () {
   const target = registeredWindows.value.filter(item => selectWindow.value == item.frameId + '' + item.tabId)

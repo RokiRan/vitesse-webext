@@ -1,8 +1,10 @@
 import type { Tabs } from 'webextension-polyfill'
 import browser from 'webextension-polyfill'
 import { onMessage, sendMessage } from 'webext-bridge'
+
 import { CHANNEL } from '~/types/Orders'
-import { clearStorage } from '~/logic'
+// import { clearStorage } from '~/logic'
+
 browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console
   console.log('Extension installed')
@@ -55,7 +57,6 @@ onMessage(CHANNEL.SYSTEM, ({ data }) => {
   console.log(`[vitesse-webext - background] Navigate from options "${data}"`)
 })
 
-
 // browser.webRequest.onResponseStarted.addListener(function (details) {
 //   console.log('------------>>>', details.url);
 //   return {cancel: details.url.indexOf("://www.evil.com/") != -1};
@@ -63,3 +64,4 @@ onMessage(CHANNEL.SYSTEM, ({ data }) => {
 // {urls: ["<all_urls>"]},
 // ["responseHeaders"]
 // );
+
