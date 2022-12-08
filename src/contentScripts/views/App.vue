@@ -146,7 +146,10 @@ function getP2OddFromDom() {
 }
 
 onMounted(() => {
-  const socket = io('ws://localhost/')
+  const socket = io('ws://localhost/', {
+    reconnection: true,
+    reconnectionAttempts: 2,
+  })
   console.log('socket:', socket);
   socket.on('connect', () => {  
     console.log('connect');
