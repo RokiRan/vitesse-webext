@@ -1,9 +1,27 @@
+/* eslint-disable no-console */
 import type { Tabs } from 'webextension-polyfill'
 import browser from 'webextension-polyfill'
 import { onMessage, sendMessage } from 'webext-bridge'
 
+// import { io } from 'socket.io-client'
+// import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
 import { CHANNEL } from '~/types/Orders'
 // import { clearStorage } from '~/logic'
+
+// const socket = io('ws://localhost:4000')
+// const initWs = () => {
+//   const socket = io('ws://127.0.0.1:4000')
+//   console.log('socket:', socket)
+//   socket.on('connect', () => {
+//     console.log('connect')
+//     socket.send('message', `hello:${window.location.href}`)
+//   })
+//   socket.on('message', (data) => {
+//     console.log('message:', data)
+//   })
+// }
+// initWs()
+// console.log(io)
 
 browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console

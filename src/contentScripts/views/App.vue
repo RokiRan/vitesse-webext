@@ -146,9 +146,9 @@ function getP2OddFromDom() {
 }
 
 onMounted(() => {
-  const socket = io('http://127.0.0.1:4000')
+  const socket = io('ws://localhost/')
   console.log('socket:', socket);
-  socket.on('connect', () => {
+  socket.on('connect', () => {  
     console.log('connect');
     socket.send('message', 'hello:'+ window.location.href);
   })

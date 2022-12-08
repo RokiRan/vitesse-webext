@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { onMessage } from 'webext-bridge';
-import { CHANNEL } from '~/types/Orders';
+import { onMessage } from 'webext-bridge'
 import MenuVue from '../views/components/Menu.vue'
+import { CHANNEL } from '~/types/Orders'
 
 const matchOdds = reactive<{ sb: any }>({
-  sb: {}
+  sb: {},
 })
-onMessage(CHANNEL.ODD_POST, data => {
+onMessage(CHANNEL.ODD_POST, (data) => {
   console.log('收到赔率', data)
   matchOdds.sb = data.data
 })
@@ -18,7 +18,7 @@ onMessage(CHANNEL.ODD_POST, data => {
       <MenuVue />
     </div>
     <div class="flex-1">
-      <router-view></router-view>
+      <router-view />
     </div>
   </div>
 </template>
