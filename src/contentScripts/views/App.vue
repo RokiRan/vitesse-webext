@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { useToggle } from '@vueuse/core'
 import { onMessage, sendMessage } from 'webext-bridge'
 import { CHANNEL, baseOrder } from '~/types/Orders'
@@ -10,6 +10,9 @@ const [show, toggle] = useToggle(false)
 const isInIframe = (self !== top);
 
 const switchPop = { top: (Math.random() * 150) + 'px' };
+// ws状态
+let socket: Socket | null = null;
+const wsStatue = ref('未连接');
 window.addEventListener('hookAjaxResponse', ({ detail }) => {
   console.log('收到消息', detail!)
 })
@@ -146,33 +149,62 @@ function getP2OddFromDom() {
 }
 
 onMounted(() => {
-  const socket = io('ws://localhost/', {
+  // socket = io('ws://localhost/', {
+  //   reconnection: true,
+  //   reconnectionAttempts: 2,
+  // })
+  
+})
+function initWs() {
+  if (socket) return;
+  socket = io('ws://localhost/', {
     reconnection: true,
     reconnectionAttempts: 2,
   })
   console.log('socket:', socket);
   socket.on('connect', () => {  
+    wsStatue.value = '已连接';
     console.log('connect');
-    socket.send('message', 'hello:'+ window.location.href);
+    socket?.send('message', 'hello:'+ window.location.href);
+  })
+  socket.on('disconnect', () => {
+    wsStatue.value = '已断开';
+    console.log('disconnect');
+  })
+  socket.on('error', (err) => {
+    wsStatue.value = '已断开:'+ err.message;
+    console.log('error:', err);
   })
   socket.on('message', (data) => {
     console.log('message:', data);
   })
-})
+}
+function disconnect() {
+  socket?.disconnect();
+}
+function reconnection() {
+  disconnect();
+  initWs();
+}
 </script>
 
 <template>
-  <div class="w-10 h-10 cursor-pointer fixed top-0 left-0 iframe-btn" v-if="isInIframe" :style="switchPop"
+  <!-- 控制开关 -->
+  <div class="w-10 h-10 cursor-pointer fixed bottom-0 left-0 iframe-btn"
     @dblclick.prevent.self="toggle()">
-
   </div>
   <div class="h-100vh w-20vw fixed font-sans select-none top-0 leading-1em bg-aside" :class="show ? 'show' : ''"
     transition="duration-300">
+    <div class="bg-light-50 text-center p-2 font-medium">状态:{{ wsStatue }}</div>
     <div class="absolute top-2 right-2 cursor-pointer" @click="toggle()">
       <pixelarticons-close class="block m-auto text-white text-lg" />
     </div>
-    <button class="btn" @click="registerTabOrIframe">注册窗口</button>
-    <button class="btn" @click="getP2OddFromDom">测试爬取</button>
+    <div>
+      <!-- <button class="btn" @click="registerTabOrIframe">注册窗口</button>
+      <button class="btn" @click="getP2OddFromDom">测试爬取</button> -->
+      <button class="btn" @click="reconnection" v-show="wsStatue !== '已连接'">链接ws</button>
+      <button class="btn" @click="disconnect" v-show="wsStatue === '已连接'">断开ws</button>
+    </div>
   </div>
 </template>
 <style>
